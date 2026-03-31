@@ -1,10 +1,9 @@
-import { createClient } from "next-sanity";
+import { createClient } from "@sanity/client";
 
-// src/lib/sanity.ts
 export const client = createClient({
-  projectId: "bt0l9086",
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
   dataset: "production",
-  apiVersion: "2024-03-20",
-  token: "skhwJVeBzyB8cKP67n2WzSzC3uJfzhR4zEoSvIZx9R3AXQHes9IqrVFBYyfG7ZrD9ry7LUpSEwGsy7djhUnUfgAW6GWEBtESEjnd4E7HeReTBSrJxl0zkvbSjHVLyGEVPd6u3XimruIBvwoxW0AqEYL6joYy1LhYl5L4M6m4TcnqgBmxR9hb", // Add this line!
-  useCdn: false,
+  useCdn: false, // Set to false to use the token for real-time updates
+  apiVersion: "2024-03-31",
+  token: process.env.NEXT_PUBLIC_SANITY_API_TOKEN, // This allows writing/reading private data
 });
