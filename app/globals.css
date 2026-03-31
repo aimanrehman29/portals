@@ -3,20 +3,35 @@
 @tailwind utilities;
 
 :root {
-  --background: #050505;
-  --foreground: #f8fafc;
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 0, 0, 0;
 }
 
 body {
-  background-color: var(--background);
-  color: var(--foreground);
-  background-image: radial-gradient(circle at 2px 2px, rgba(14, 165, 233, 0.15) 1px, transparent 0);
-  background-size: 40px 40px;
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-start-rgb));
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
 
-/* Glassmorphism Effect */
-.glass {
-  background: rgba(15, 15, 15, 0.7);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+/* Remove default focus outlines that cause the 'white box' look */
+*:focus {
+  outline: none !important;
+}
+
+/* Custom scrollbar for that premium aesthetic */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+::-webkit-scrollbar-thumb {
+  background: #1a1a1a;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #0ea5e9;
 }
