@@ -29,7 +29,7 @@ export default function AdminPage() {
             </span>
           </div>
           <h1 className="text-5xl md:text-7xl font-black tracking-tighter uppercase italic leading-none">
-            Welcome, <span className="text-sky-500 underline decoration-zinc-800 underline-offset-8">{user?.name || "Faculty"}</span>
+            Welcome, <span className="text-sky-500 underline decoration-zinc-800 underline-offset-8">Prof.Pinhaan</span>
           </h1>
         </div>
         <div className="hidden md:block text-right">
