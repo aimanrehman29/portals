@@ -10,7 +10,7 @@ export default function StudentDashboard() {
 
     try {
       // Is line ka matlab hai: Wo documents dhoondo jinka type 'attendance' ya 'submission' hai aur unhe urra do.
-      await client.delete({ query: '*[_type == "assignment" || _type == "submission"]' });
+      await client.delete({ query: `*[_type == "professor" && name != "Professor Name"]` });
       
       alert("✅ Shabaash! Data saaf ho gaya.");
       window.location.reload(); // Dashboard refresh ho jayega

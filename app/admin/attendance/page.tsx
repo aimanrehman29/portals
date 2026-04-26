@@ -7,9 +7,11 @@ export default function MarkAttendance() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // Fetch all students to show in the list
-    client.fetch(`*[_type == "student"]{_id, name, rollNumber}`).then(setStudents);
-  }, []);
+  // Sirf wo dikhao jinka roll number 'st' se start hota hai
+  client
+    .fetch(`*[_type == "student" && rollNumber match "st*"]{_id, name, rollNumber}`)
+    .then(setStudents);
+}, []);
 
   const handleAttendance = async (studentId: string, status: string) => {
     setLoading(true);
@@ -38,6 +40,7 @@ export default function MarkAttendance() {
         {students.map((s: any) => (
           <div key={s._id} className="bg-zinc-900/50 p-6 rounded-2xl flex justify-between items-center border border-zinc-800">
             <div>
+              <p className="font-bold uppercase h1 tracking-tight">STUDENT</p>
               <p className="font-bold uppercase tracking-tight">{s.name}</p>
               <p className="text-[10px] text-zinc-500 font-mono">{s.rollNumber}</p>
             </div>
