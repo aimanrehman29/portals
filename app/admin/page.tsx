@@ -2,6 +2,7 @@
 import { useAuth } from "../context/PortalContext";
 import { useEffect, useState } from "react";
 import { client } from "../lib/sanity";
+import Link from "next/link"; // Link import karna mat bhooliye ga
 
 export default function AdminPage() {
   const { user } = useAuth();
@@ -9,91 +10,109 @@ export default function AdminPage() {
 
   useEffect(() => {
     const fetchStats = async () => {
-      const studentCount = await client.fetch(`count(*[_type == "student" && role == "student"])`);
+      // Filter: Sirf wo students count honge jo professors nahi hain
+      const studentCount = await client.fetch(
+        `count(*[_type == "student" && !(name match "Prof*")])`
+      );
       setStats({ students: studentCount });
     };
     fetchStats();
   }, []);
 
   return (
-    <div className="animate-in fade-in slide-in-from-right-4 duration-700">
-      {/* Header with better spacing */}
-      <header className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+    <div className="p-6 max-w-7xl mx-auto animate-in fade-in duration-700">
+      
+      {/* --- HEADER SECTION --- */}
+      <header className="mb-10 flex flex-col md:flex-row justify-between items-start md:items-center border-b border-zinc-800 pb-8 gap-4">
         <div>
-          <div className="flex items-center gap-3 mb-4">
-            <span className="bg-sky-500 text-[10px] font-black px-3 py-1 rounded-full text-black uppercase tracking-tighter">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="bg-sky-500 text-[9px] font-black px-2 py-0.5 rounded text-black uppercase tracking-widest">
               Authorized
             </span>
-            <span className="text-zinc-600 text-[10px] font-mono tracking-[0.3em] uppercase">
-              Node ID: {user?.rollNumber || "T-101"}
+            <span className="text-zinc-600 text-[10px] font-mono uppercase tracking-widest">
+              Node ID: {user?.rollNumber || "ST-101"}
             </span>
           </div>
-          <h1 className="text-5xl md:text-7xl font-black tracking-tighter uppercase italic leading-none">
-            Welcome, <span className="text-sky-500 underline decoration-zinc-800 underline-offset-8">Prof.Pinhaan</span>
+          <h1 className="text-5xl font-black uppercase tracking-tighter leading-none">
+            Welcome, <span className="text-zinc-500">Prof.Pinhaan</span>
           </h1>
         </div>
-        <div className="hidden md:block text-right">
-          <p className="text-zinc-700 text-[10px] uppercase tracking-[0.5em] font-bold mb-1">System Status</p>
-          <p className="text-emerald-500 text-xs font-mono uppercase tracking-widest animate-pulse">● Secure Connection</p>
+        
+        <div className="text-left md:text-right">
+          <p className="text-zinc-700 text-[9px] uppercase tracking-[0.4em] font-bold mb-1">System Health</p>
+          <p className="text-emerald-500 text-[10px] font-mono uppercase tracking-widest animate-pulse">
+            ● Connection Secure
+          </p>
         </div>
       </header>
 
-      {/* Grid with Gap fixing */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-        <StatBox label="Total Students" value={stats.students} />
-        <StatBox label="Attendance Rate" value="92%" />
-        <StatBox label="Active Assignments" value="07" />
+      {/* --- STATS GRID --- */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-10">
+        <StatCard label="Total Students" value={stats.students} />
+        <StatCard label="Attendance Rate" value="92%" />
+        <StatCard label="Active Tasks" value="07" />
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-        {/* Broadcast Feed */}
-        <section className="bg-zinc-900/20 border border-zinc-800/40 p-10 rounded-[3rem]">
-           <h3 className="text-zinc-500 text-[10px] font-black uppercase tracking-[0.4em] mb-10">Broadcast History</h3>
-           <div className="space-y-8">
-              <LogItem title="Physics Result" status="Published" />
-              <LogItem title="Server Sync" status="Completed" />
-              <LogItem title="New Student" status="Pending" />
-           </div>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        {/* --- BROADCAST HISTORY (Left Side) --- */}
+        <section className="lg:col-span-2 bg-zinc-900/20 border border-zinc-800/50 p-8 rounded-3xl">
+          <h3 className="text-zinc-500 text-[10px] font-bold uppercase tracking-[0.3em] mb-8">System Broadcasts</h3>
+          <div className="space-y-6">
+            <LogItem title="Physics Result" status="Published" color="text-sky-400" />
+            <LogItem title="Server Sync" status="Success" color="text-emerald-400" />
+            <LogItem title="Library Registry" status="Updated" color="text-zinc-400" />
+            <LogItem title="New Student Node" status="Pending" color="text-amber-400" />
+          </div>
         </section>
 
-        {/* Action Panel */}
-        <section className="bg-white rounded-[3rem] p-10 text-black">
-           <h3 className="text-black/30 text-[10px] font-black uppercase tracking-[0.4em] mb-10">Administrative Actions</h3>
-           <div className="grid grid-cols-2 gap-4">
-              <AdminBtn label="Mark Attendance" icon="✏️" />
-              <AdminBtn label="Create Task" icon="📂" />
-              <AdminBtn label="Export Data" icon="📊" />
-              <AdminBtn label="Settings" icon="⚙️" />
-           </div>
+        {/* --- ACTIONS PANEL (Right Side) --- */}
+        <section className="bg-zinc-100 p-8 rounded-3xl text-black shadow-2xl">
+          <h3 className="text-black/30 text-[10px] font-black uppercase tracking-[0.3em] mb-8">Admin Controls</h3>
+          <div className="grid grid-cols-1 gap-4">
+            <ActionBtn href="/admin/attendance" label="Mark Attendance" icon="✏️" />
+            <ActionBtn href="/admin/assignments" label="Create New Assignments" icon="📂" />
+            <ActionBtn href="/" label="Portal Settings" icon="⚙️" />
+            <ActionBtn href="/" label="Generate Report" icon="📊" />
+          </div>
         </section>
+
       </div>
     </div>
   );
 }
 
-// Sub-components for cleaner code
-function StatBox({ label, value }: any) {
+// --- REUSABLE COMPONENTS ---
+
+function StatCard({ label, value }: any) {
   return (
-    <div className="bg-zinc-900/40 border border-zinc-800 p-8 rounded-[2rem] hover:border-sky-500/50 transition-all">
-      <p className="text-zinc-600 text-[10px] uppercase tracking-widest font-bold mb-2">{label}</p>
-      <h3 className="text-4xl font-black">{value}</h3>
+    <div className="bg-zinc-900/40 border border-zinc-800/60 p-6 rounded-2xl hover:bg-zinc-900/60 transition-colors group">
+      <p className="text-zinc-600 text-[10px] uppercase font-bold tracking-widest mb-2 group-hover:text-sky-500 transition-colors">
+        {label}
+      </p>
+      <h3 className="text-4xl font-black text-white">{value}</h3>
     </div>
   );
 }
 
-function LogItem({ title, status }: any) {
+function LogItem({ title, status, color }: any) {
   return (
-    <div className="flex justify-between border-b border-zinc-800/50 pb-4">
-      <span className="text-sm font-bold uppercase">{title}</span>
-      <span className="text-[10px] font-mono text-sky-500">{status}</span>
+    <div className="flex justify-between items-center py-3 border-b border-zinc-800/30 last:border-0">
+      <span className="text-sm font-bold uppercase tracking-tight text-zinc-300">{title}</span>
+      <span className={`text-[9px] font-mono font-black uppercase px-2 py-1 bg-white/5 rounded ${color}`}>
+        {status}
+      </span>
     </div>
   );
 }
 
-function AdminBtn({ label, icon }: any) {
+function ActionBtn({ label, icon, href }: any) {
   return (
-    <button className="flex items-center gap-3 bg-zinc-100 hover:bg-sky-500 hover:text-white p-5 rounded-2xl transition-all font-black uppercase text-[10px] tracking-widest">
-      <span>{icon}</span> {label}
-    </button>
+    <Link href={href} className="block w-full group">
+      <button className="flex items-center gap-4 bg-white hover:bg-black hover:text-white w-full p-4 rounded-xl transition-all duration-300 font-bold uppercase text-[10px] tracking-widest border border-zinc-200 shadow-sm">
+        <span className="text-xl group-hover:scale-110 transition-transform">{icon}</span>
+        {label}
+      </button>
+    </Link>
   );
 }
