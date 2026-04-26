@@ -19,8 +19,42 @@ export default function StudentDashboard() {
     fetchTasks();
   }, []);
 
-  const handleUpload = async (e: any, title: string) => {
-    // ... (aapka pehle wala upload logic yahan aayega)
+  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>, title: string) => {
+    const file = e.target.files?.[0];
+    if (!file || !user) return;
+
+    setUploading(title);
+
+    try {
+      // 1. File ko Sanity Assets mein upload karna
+      const asset = await client.assets.upload('file', file, {
+        filename: file.name,
+      });
+
+      // 2. Submission document create karna jo student aur assignment ko link kare
+      await client.create({
+        _type: 'submission',
+        studentName: user.name,
+        studentId: user.rollNumber,
+        assignmentTitle: title,
+        fileURL: asset.url,
+        attachment: {
+          _type: 'file',
+          asset: {
+            _type: "reference",
+            _ref: asset._id,
+          },
+        },
+        submittedAt: new Date().toISOString(),
+      });
+
+      alert("✅ Assignment Submitted Successfully!");
+    } catch (error) {
+      console.error("Upload Error:", error);
+      alert("❌ Submission Failed. Check your Sanity Token permissions.");
+    } finally {
+      setUploading(null);
+    }
   };
 
   if (!user) return <div className="p-20 text-zinc-500 font-mono animate-pulse">Initializing Portal...</div>;
