@@ -12,18 +12,35 @@ export default function StudentSidebar() {
   };
 
   return (
-    <aside className="w-64 min-h-screen bg-black border-r border-zinc-900 p-6 flex flex-col">
-      <div className="mb-10">
+    <aside className="  bg-black  p-40 flex flex-col w-[200px] h-screen">
+      <div className="mb-20">
         <h2 className="text-xl font-black tracking-tighter text-white uppercase">KUPORTAL</h2>
         <p className="text-[10px] text-sky-500 tracking-widest font-bold">STUDENT NODE</p>
       </div>
 
-      <nav className="flex-1 space-y-2">
-        <SidebarLink href="/dashboard" label="My Overview" icon="🏠" />
-        <SidebarLink href="/dashboard/courses" label="My Courses" icon="📚" />
-        <SidebarLink href="/dashboard/grades" label="Result Card" icon="🎓" />
-        <SidebarLink href="/dashboard/profile" label="Profile Settings" icon="⚙️" />
-      </nav>
+   <nav className="flex-1 px-20 space-y-3 mt-50 text-[25px] text-sky-500 tracking-widest font-bold hover:text-sky-400 transition-colors">
+  
+  
+  <SidebarLink 
+    href="/dashboard" 
+    label="My Overview" 
+    icon="🏠" 
+  />
+  
+  <SidebarLink 
+    href="/dashboard/assignment_submission" 
+    label="Assignments" 
+    icon="📚" 
+  />
+  
+
+  
+  <SidebarLink 
+    href="/dashboard/profile" 
+    label="Settings" 
+    icon="⚙️" 
+  />
+</nav>
 
       <button 
         onClick={handleLogout}

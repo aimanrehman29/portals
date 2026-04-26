@@ -6,7 +6,7 @@ export default function TeacherLayout({ children }: { children: React.ReactNode 
     <div className="flex min-h-screen bg-black overflow-hidden">
       
       {/* 1. SIDEBAR: Fixed width, doesn't shrink */}
-      <aside className="w-64 flex-shrink-0 border-r border-zinc-800 bg-zinc-950 z-50">
+      <aside className="w-64 flex-shrink-0  bg-zinc-950 z-50">
         <TeacherSidebar />
       </aside>
 

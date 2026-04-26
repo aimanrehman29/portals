@@ -30,7 +30,7 @@ export default function TeacherPortal() {
 
   return (
     <div className="p-10 bg-black min-h-screen text-white">
-      <h1 className="text-4xl font-black italic uppercase mb-10">Student Submissions</h1>
+      <h1 className="text-4xl font-black italic uppercase mb-10 flex justify-center">Student Submissions</h1>
       
       <div className="overflow-hidden rounded-3xl border border-zinc-800">
         <table className="w-full text-left bg-zinc-900/50">

@@ -32,8 +32,8 @@ export default function MarkAttendance() {
 
   return (
     <div className="p-8 bg-black min-h-screen text-white">
-      <h1 className="text-4xl font-black italic uppercase mb-10 tracking-tighter">
-        Daily <span className="text-sky-500">Attendance</span>
+      <h1 className="text-4xl font-black italic uppercase mb-10 tracking-tighter flex justify-center">
+        Daily-<span className="text-sky-500"> Attendance</span>
       </h1>
       
       <div className="grid gap-4">
