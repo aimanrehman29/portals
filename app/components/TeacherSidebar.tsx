@@ -13,6 +13,7 @@ export default function TeacherSidebar() {
         <Link href="/admin" className="block text-zinc-400 hover:text-sky-400 font-bold uppercase text-xs tracking-widest transition-all">📊 Dashboard</Link>
         <Link href="/admin/attendance" className="block text-zinc-400 hover:text-sky-400 font-bold uppercase text-xs tracking-widest transition-all">📝 Attendance</Link>
         <Link href="/admin/assignments" className="block text-zinc-400 hover:text-sky-400 font-bold uppercase text-xs tracking-widest transition-all">📂 Tasks</Link>
+        <Link href="/admin/submissions" className="block text-zinc-400 hover:text-sky-400 font-bold uppercase text-xs tracking-widest transition-all">📥 Check Submissions</Link>
       </nav>
 
       <div className="pt-6 border-t border-zinc-900">

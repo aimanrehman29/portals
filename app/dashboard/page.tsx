@@ -62,7 +62,9 @@ export default function StudentDashboard() {
                 <h3 className="text-lg font-bold group-hover:text-sky-400 uppercase italic">{t.title}</h3>
                 <p className="text-xs text-zinc-500 uppercase mt-1">Due: {t.dueDate}</p>
               </div>
-              <button className="bg-white text-black px-6 py-2 rounded-xl font-black text-xs hover:bg-sky-500 transition-colors uppercase">Submit</button>
+               <button className="bg-white text-black px-6 py-2 rounded-xl font-black text-xs hover:bg-sky-500 transition-colors uppercase">
+                  <a href="/dashboard/assignment_submission">Submit</a>
+                </button>
             </div>
           )) : (
             <p className="text-zinc-700 text-sm italic">No active assignments found.</p>
