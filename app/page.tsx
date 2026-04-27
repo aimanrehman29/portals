@@ -11,7 +11,7 @@ export default function WelcomePage() {
 
       <div className="z-10 text-center space-y-6">
         <h1 className="text-7xl md:text-9xl font-black italic tracking-tighter text-white uppercase">
-          KU PORTAL<span className="text-sky-500 text-3xl not-italic">v1.1</span>
+          DUAL PORTAL<span className="text-sky-500 text-3xl not-italic"></span>
         </h1>
         <p className="text-zinc-600 text-[10px] tracking-[0.8em] uppercase font-bold">
           Karachi University • BSCS Project
